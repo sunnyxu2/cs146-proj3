@@ -48,11 +48,19 @@ public class Maze {
 			
 			start = nodes.get(0);
 			end = nodes.get(nodes.size() - 1);
-			// implement a way to make a maze out of BFS
+			// implement a way to make a maze out of DFS
 		}
 	}
 
 	public String toString() {
 		return ""; // TBD
+	}
+	
+	public MazeNode getStart() {
+		return start;
+	}
+	
+	public MazeNode getEnd() {
+		return end;
 	}
 }
