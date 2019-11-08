@@ -27,6 +27,7 @@ public class Maze {
 		random.setSeed(seed);
 	}
 	
+	
 	public String toString() {
 		return ""; // TBD
 	}
