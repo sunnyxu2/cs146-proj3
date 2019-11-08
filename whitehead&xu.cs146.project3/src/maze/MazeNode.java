@@ -10,6 +10,10 @@ public class MazeNode {
 	private Color color;
 	private LinkedList<MazeNode> adj;
 	private Coord2D coord;
+	private int distance;
+	private int discovery;
+	private int finish;
+	private Coord2D parent;
 
 	public MazeNode(int x, int y) {
 		coord = new Coord2D(x, y);
@@ -23,10 +27,14 @@ public class MazeNode {
 		return coord;
 	}
 
-	public LinkedList<MazeNode> getAdjacent() {
+	public LinkedList<MazeNode> getAdjacencyList() {
 		return adj;
 	}
 
+	public void addAdjacent(MazeNode other) {
+		adj.add(other);
+	}
+	
 	public Color getColor() {
 		return color;
 	}
@@ -69,5 +77,37 @@ public class MazeNode {
 			}
 		}
 		return null;
+	}
+	
+	public void setDistance(int d) {
+		distance = d;
+	}
+	
+	public int getDistance() {
+		return distance;
+	}
+	
+	public void setDiscoveryTime(int d) {
+		discovery = d;
+	}
+	
+	public int getDiscoveryTime() {
+		return discovery;
+	}
+	
+	public void setFinishTime(int f) {
+		finish = f;
+	}
+	
+	public int getFinishTime() {
+		return finish;
+	}
+	
+	public Coord2D getParent() {
+		return parent;
+	}
+	
+	public void setParent(Coord2D other) {
+		parent = other;
 	}
 }
