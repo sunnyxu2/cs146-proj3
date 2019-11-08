@@ -20,4 +20,7 @@ public class Coord2D {
 		return y;
 	}
 
+	public boolean equals(Coord2D other) {
+		return other.x == this.x && other.y == this.y;
+	}
 }
