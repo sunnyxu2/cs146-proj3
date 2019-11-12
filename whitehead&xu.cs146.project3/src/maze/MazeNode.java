@@ -1,5 +1,6 @@
 package maze;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 enum Color {
@@ -8,7 +9,8 @@ enum Color {
 
 public class MazeNode {
 	private Color color;
-	private LinkedList<MazeNode> adj;
+	private ArrayList<MazeNode> adj;
+	private LinkedList<MazeNode> connected;
 	private Coord2D coord;
 	private int distance;
 	private int discovery;
@@ -27,12 +29,20 @@ public class MazeNode {
 		return coord;
 	}
 
-	public LinkedList<MazeNode> getAdjacencyList() {
+	public ArrayList<MazeNode> getAdjacencyList() {
 		return adj;
 	}
 
 	public void addAdjacent(MazeNode other) {
 		adj.add(other);
+	}
+	
+	public LinkedList<MazeNode> getConnectedList() {
+		return connected;
+	}
+	
+	public void addConnected(MazeNode other) {
+		connected.add(other);
 	}
 	
 	public Color getColor() {
