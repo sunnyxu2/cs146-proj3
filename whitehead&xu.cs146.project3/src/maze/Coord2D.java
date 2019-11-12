@@ -1,7 +1,7 @@
 package maze;
 
 /**
- * Immutable object that acts like a coordinate
+ * Immutable object that acts like a coordinate. Format is (x, y).
  */
 public class Coord2D {
 	private final int x;
@@ -22,5 +22,10 @@ public class Coord2D {
 
 	public boolean equals(Coord2D other) {
 		return other.x == this.x && other.y == this.y;
+	}
+	
+	@Override
+	public String toString() {
+		return "(" + getX() + ", " + getY() + ")";
 	}
 }
