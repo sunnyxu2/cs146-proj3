@@ -3,10 +3,29 @@ package maze;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * White is undiscovered, grey is discovered, 
+ * @author Sunny
+ *
+ */
 enum Color {
-	WHITE, GRAY, BLACK;
+	WHITE, GRAY, BLACK, RED;
 }
 
+/**
+ * Compass directions.
+ * @author Sunny
+ *
+ */
+enum Compass {
+	NORTH, SOUTH, WEST, EAST;
+}
+
+/**
+ * Object node class for maze creation and search.
+ * @author Sunny
+ *
+ */
 public class MazeNode {
 	private Color color;
 	private ArrayList<MazeNode> adj;
@@ -15,14 +34,20 @@ public class MazeNode {
 	private int distance;
 	private int discovery;
 	private int finish;
-	private Coord2D parent;
+	private MazeNode parent;
 
 	public MazeNode(int x, int y) {
 		coord = new Coord2D(x, y);
+		adj = new ArrayList<>();
+		connected = new LinkedList<>();
+		color = Color.WHITE;
 	}
 
 	public MazeNode(Coord2D coord) {
 		this.coord = coord;
+		adj = new ArrayList<>();
+		connected = new LinkedList<>();
+		color = Color.WHITE;
 	}
 
 	public Coord2D getCoord() {
@@ -53,7 +78,7 @@ public class MazeNode {
 		this.color = color;
 	}
 	
-	public MazeNode getEast() {
+	public MazeNode getEastAdj() {
 		for (MazeNode node : adj) {
 			if (node.getCoord().getX() == this.coord.getX() + 1 && node.getCoord().getY() == this.coord.getY()) {
 				return node;
@@ -62,7 +87,7 @@ public class MazeNode {
 		return null;
 	}
 	
-	public MazeNode getWest() {
+	public MazeNode getWestAdj() {
 		for (MazeNode node : adj) {
 			if (node.getCoord().getX() == this.coord.getX() - 1 && node.getCoord().getY() == this.coord.getY()) {
 				return node;
@@ -71,7 +96,16 @@ public class MazeNode {
 		return null;
 	}
 	
-	public MazeNode getNorth() {
+	public MazeNode getNorthAdj() {
+		for (MazeNode node : adj) {
+			if (node.getCoord().getX() == this.coord.getX() && node.getCoord().getY() == this.coord.getY() - 1) {
+				return node;
+			}
+		}
+		return null;
+	}
+	
+	public MazeNode getSouthAdj() {
 		for (MazeNode node : adj) {
 			if (node.getCoord().getX() == this.coord.getX() && node.getCoord().getY() == this.coord.getY() + 1) {
 				return node;
@@ -80,9 +114,50 @@ public class MazeNode {
 		return null;
 	}
 	
-	public MazeNode getSouth() {
-		for (MazeNode node : adj) {
+	public Compass getCompassDirAdj(MazeNode node) {
+		if (node.getCoord().getX() == this.coord.getX() && node.getCoord().getY() == this.coord.getY() + 1) {
+			return Compass.SOUTH;
+		} else if (node.getCoord().getX() == this.coord.getX() && node.getCoord().getY() == this.coord.getY() - 1) {
+			return Compass.NORTH;
+		} else if (node.getCoord().getX() == this.coord.getX() - 1 && node.getCoord().getY() == this.coord.getY()) {
+			return Compass.WEST;
+		} else if (node.getCoord().getX() == this.coord.getX() + 1 && node.getCoord().getY() == this.coord.getY()){
+			return Compass.EAST;
+		} else {
+			return null;
+		}
+	}
+	
+	public MazeNode getEastConnected() {
+		for (MazeNode node : connected) {
+			if (node.getCoord().getX() == this.coord.getX() + 1 && node.getCoord().getY() == this.coord.getY()) {
+				return node;
+			}
+		}
+		return null;
+	}
+	
+	public MazeNode getWestConnected() {
+		for (MazeNode node : connected) {
+			if (node.getCoord().getX() == this.coord.getX() - 1 && node.getCoord().getY() == this.coord.getY()) {
+				return node;
+			}
+		}
+		return null;
+	}
+	
+	public MazeNode getNorthConnected() {
+		for (MazeNode node : connected) {
 			if (node.getCoord().getX() == this.coord.getX() && node.getCoord().getY() == this.coord.getY() - 1) {
+				return node;
+			}
+		}
+		return null;
+	}
+	
+	public MazeNode getSouthConnected() {
+		for (MazeNode node : connected) {
+			if (node.getCoord().getX() == this.coord.getX() && node.getCoord().getY() == this.coord.getY() + 1) {
 				return node;
 			}
 		}
@@ -113,11 +188,15 @@ public class MazeNode {
 		return finish;
 	}
 	
-	public Coord2D getParent() {
+	public MazeNode getParent() {
 		return parent;
 	}
 	
-	public void setParent(Coord2D other) {
+	public void setParent(MazeNode other) {
 		parent = other;
+	}
+	
+	public String toString() {
+		return "[" + color + ", " + coord.toString() + "]";
 	}
 }
