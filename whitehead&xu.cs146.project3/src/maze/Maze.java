@@ -40,10 +40,10 @@ public class Maze {
 	}
 
 	private void generateMaze() {
-		nodes = new MazeNode[rows][cols];
+		nodes = new MazeNode[cols][rows];
 		if (start == null || end == null) {
-			for (int i = 0; i < cols; i++) { //
-				for (int j = 0; j < rows; j++) {
+			for (int i = 0; i < rows; i++) { // FIX ISSUE WHERE RECTANGULAR MAZES DO NOT WORK!!!
+				for (int j = 0; j < cols; j++) {
 					nodes[i][j] = new MazeNode(i, j);
 				}
 			}
@@ -113,7 +113,6 @@ public class Maze {
 			for (int i = 0; i < cols; i++) { //
 				for (int j = 0; j < rows; j++) {
 					nodes[i][j].setColor(Color.WHITE);
-					;
 				}
 			}
 		}
@@ -142,12 +141,12 @@ public class Maze {
 					}
 
 					switch (test.getColor()) { // TBD: MODIFY THIS TO DISPLAY A PATH
-						case RED:
-							represent += "#";
-							break;
-						default:
-							represent += " ";
-							break;
+					case RED:
+						represent += "#";
+						break;
+					default:
+						represent += " ";
+						break;
 					}
 				}
 				MazeNode test = getNode(cols - 1, h);
