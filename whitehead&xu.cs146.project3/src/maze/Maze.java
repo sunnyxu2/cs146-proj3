@@ -140,13 +140,10 @@ public class Maze {
 						represent += "|";
 					}
 
-					switch (test.getColor()) { // TBD: MODIFY THIS TO DISPLAY A PATH
-					case RED:
-						represent += "#";
-						break;
-					default:
+					if (test.getLabel() == -1 && end.getColor() == Color.GRAY) {
 						represent += " ";
-						break;
+					} else {
+						represent += test.getLabel();
 					}
 				}
 				MazeNode test = getNode(cols - 1, h);
@@ -180,11 +177,11 @@ public class Maze {
 	}
 
 	public int getWidth() {
-		return rows;
+		return cols;
 	}
 
 	public int getHeight() {
-		return cols;
+		return rows;
 	}
 
 	public MazeNode getNode(Coord2D coord) {
@@ -196,5 +193,9 @@ public class Maze {
 
 	public MazeNode getNode(int x, int y) {
 		return nodes[x][y];
+	}
+	
+	public MazeNode[][] getNodeArray() {
+		return nodes;
 	}
 }
