@@ -34,6 +34,7 @@ public class MazeNode {
 	private int distance;
 	private int discovery;
 	private int finish;
+	private int label;
 	private MazeNode parent;
 
 	public MazeNode(int x, int y) {
@@ -41,6 +42,10 @@ public class MazeNode {
 		adj = new ArrayList<>();
 		connected = new LinkedList<>();
 		color = Color.WHITE;
+		distance = 0;
+		discovery = 0;
+		finish = 0;
+		setLabel(-1);
 	}
 
 	public MazeNode(Coord2D coord) {
@@ -48,6 +53,10 @@ public class MazeNode {
 		adj = new ArrayList<>();
 		connected = new LinkedList<>();
 		color = Color.WHITE;
+		distance = 0;
+		discovery = 0;
+		finish = 0;
+		setLabel(-1);
 	}
 
 	public Coord2D getCoord() {
@@ -198,5 +207,13 @@ public class MazeNode {
 	
 	public String toString() {
 		return "[" + color + ", " + coord.toString() + "]";
+	}
+
+	public int getLabel() {
+		return label;
+	}
+
+	public void setLabel(int label) {
+		this.label = label;
 	}
 }
