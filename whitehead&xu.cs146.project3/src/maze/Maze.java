@@ -42,14 +42,14 @@ public class Maze {
 	private void generateMaze() {
 		nodes = new MazeNode[cols][rows];
 		if (start == null || end == null) {
-			for (int i = 0; i < rows; i++) { // FIX ISSUE WHERE RECTANGULAR MAZES DO NOT WORK!!!
-				for (int j = 0; j < cols; j++) {
+			for (int i = 0; i < cols; i++) { // FIX ISSUE WHERE RECTANGULAR MAZES DO NOT WORK!!!
+				for (int j = 0; j < rows; j++) {
 					nodes[i][j] = new MazeNode(i, j);
 				}
 			}
 
-			for (int i = 0; i < rows; i++) { //
-				for (int j = 0; j < cols; j++) {
+			for (int i = 0; i < cols; i++) { //
+				for (int j = 0; j < rows; j++) {
 					MazeNode curr = nodes[i][j];
 					MazeNode check;
 					if (i - 1 >= 0) {
@@ -57,7 +57,7 @@ public class Maze {
 						curr.addAdjacent(check); // WEST
 					}
 
-					if (i + 1 < rows) {
+					if (i + 1 < cols) {
 						check = nodes[i + 1][j];
 						curr.addAdjacent(check); // EAST
 					}
@@ -67,7 +67,7 @@ public class Maze {
 						curr.addAdjacent(check); // SOUTH
 					}
 
-					if (j + 1 < cols) {
+					if (j + 1 < rows) {
 						check = nodes[i][j + 1];
 						curr.addAdjacent(check); // NORTH
 					}
@@ -75,7 +75,7 @@ public class Maze {
 			}
 
 			start = nodes[0][0];
-			end = nodes[rows - 1][cols - 1];
+			end = nodes[cols - 1][rows - 1];
 
 			Stack<MazeNode> stack = new Stack<>();
 			int totalCells = rows * cols;
