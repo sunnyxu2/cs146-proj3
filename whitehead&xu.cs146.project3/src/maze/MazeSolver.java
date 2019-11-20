@@ -32,13 +32,13 @@ public class MazeSolver {
 		queue.add(source);
 		while (!queue.isEmpty()) {
 			MazeNode you = queue.remove();
-			you.setLabel(you.getDistance() % 10);
+			you.setLabel(Integer.toString(you.getDistance() % 10));
 			for (MazeNode adj : you.getConnectedList()) {
 				if (adj.getColor() == Color.WHITE) {
 					adj.setColor(Color.GRAY);
 					adj.setDistance(you.getDistance() + 1);
 					adj.setParent(you);
-					adj.setLabel(adj.getDistance() % 10);
+					adj.setLabel(Integer.toString(adj.getDistance() % 10));
 					queue.add(adj);
 				}
 			}
