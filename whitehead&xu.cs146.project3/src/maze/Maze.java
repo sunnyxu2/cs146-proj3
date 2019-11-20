@@ -154,10 +154,10 @@ public class Maze {
 						represent += "|";
 					}
 
-					if (test.getLabel() == -1 && end.getColor() == Color.GRAY) {
-						represent += " ";
-					} else {
+					if (start.getColor() != Color.WHITE) {
 						represent += test.getLabel();
+					} else {
+						represent += " ";
 					}
 				}
 				MazeNode test = getNode(cols - 1, h);
