@@ -10,7 +10,7 @@ import java.util.Queue;
  *
  */
 public class MazeSolver {
-	public static String solve_DFS(Maze maze, MazeNode source) {
+	public static String solve_BFS(Maze maze, MazeNode source) {
 		for (int i = 0; i < maze.getWidth(); i++) {
 			for (int j = 0; j < maze.getHeight(); j++) {
 				MazeNode u = maze.getNode(i, j);
@@ -45,7 +45,7 @@ public class MazeSolver {
 		return "";
 	}
 	
-	public static String solve_BFS(Maze maze, MazeNode source) {
+	public static String solve_DFS(Maze maze, MazeNode source) {
 		return "";
 	}
 }
