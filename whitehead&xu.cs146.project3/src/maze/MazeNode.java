@@ -34,7 +34,7 @@ public class MazeNode {
 	private int distance;
 	private int discovery;
 	private int finish;
-	private int label;
+	private String label;
 	private MazeNode parent;
 
 	/**
@@ -50,7 +50,7 @@ public class MazeNode {
 		distance = 0;
 		discovery = 0;
 		finish = 0;
-		setLabel(0);
+		setLabel(Integer.toString(0));
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class MazeNode {
 		distance = 0;
 		discovery = 0;
 		finish = 0;
-		setLabel(0);
+		setLabel(Integer.toString(0));
 	}
 
 	/**
@@ -298,18 +298,18 @@ public class MazeNode {
 	}
 
 	/**
-	 * Gets label (an integer)
+	 * Gets label (a String)
 	 * @return
 	 */
-	public int getLabel() {
+	public String getLabel() {
 		return label;
 	}
 
 	/**
-	 * Sets label as an integer
+	 * Sets label as a String
 	 * @param label
 	 */
-	public void setLabel(int label) {
+	public void setLabel(String label) {
 		this.label = label;
 	}
 }
