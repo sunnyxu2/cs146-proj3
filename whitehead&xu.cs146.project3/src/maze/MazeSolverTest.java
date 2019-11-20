@@ -11,6 +11,7 @@ class MazeSolverTest {
 		Maze maze = new Maze(4,4);
 		System.out.println(maze.toString());
 		MazeSolver.solve_BFS(maze, maze.getStart());
+		System.out.println(maze.toString());
 	}
 
 }

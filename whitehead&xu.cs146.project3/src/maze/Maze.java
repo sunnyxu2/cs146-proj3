@@ -20,6 +20,11 @@ public class Maze {
 
 	private MazeNode[][] nodes;
 
+	/**
+	 * Constructor that makes a random maze given rows and columns
+	 * @param rows
+	 * @param cols
+	 */
 	public Maze(int rows, int cols) {
 		this.rows = rows;
 		this.cols = cols;
@@ -29,6 +34,12 @@ public class Maze {
 		generateMaze();
 	}
 
+	/**
+	 * Constructor that makes a random maze given rows, columns, and RNG seed
+	 * @param rows
+	 * @param cols
+	 * @param seed
+	 */
 	public Maze(int rows, int cols, int seed) {
 		this.rows = rows;
 		this.cols = cols;
@@ -39,6 +50,9 @@ public class Maze {
 		generateMaze();
 	}
 
+	/**
+	 * Helper method to construct a maze
+	 */
 	private void generateMaze() {
 		nodes = new MazeNode[cols][rows];
 		if (start == null || end == null) {
@@ -168,22 +182,43 @@ public class Maze {
 		}
 	}
 
+	/**
+	 * Gets start node (by default, the top left node or nodes[0][0]
+	 * @return
+	 */
 	public MazeNode getStart() {
 		return start;
 	}
 
+	/**
+	 * Gets end node (by default, the bottom right node or nodes[cols - 1][rows - 1]
+	 * @return
+	 */
 	public MazeNode getEnd() {
 		return end;
 	}
 
+	/**
+	 * Gets width
+	 * @return width
+	 */
 	public int getWidth() {
 		return cols;
 	}
 
+	/**
+	 * Gets height
+	 * @return height
+	 */
 	public int getHeight() {
 		return rows;
 	}
 
+	/**
+	 * Gets node in nodes array from a coordinate object
+	 * @param coord
+	 * @return
+	 */
 	public MazeNode getNode(Coord2D coord) {
 		int x = coord.getX();
 		int y = coord.getY();
@@ -191,6 +226,11 @@ public class Maze {
 		return nodes[x][y];
 	}
 
+	/**
+	 * Gets node in nodes array from an x and y coordinate
+	 * @param coord
+	 * @return
+	 */
 	public MazeNode getNode(int x, int y) {
 		return nodes[x][y];
 	}

@@ -10,7 +10,13 @@ import java.util.Queue;
  *
  */
 public class MazeSolver {
-	public static String solve_BFS(Maze maze, MazeNode source) {
+	/**
+	 * Traverses the maze using breadth-first search
+	 * @param maze
+	 * @param source
+	 * @return String representation of the maze
+	 */
+	public static void solve_BFS(Maze maze, MazeNode source) {
 		for (int i = 0; i < maze.getWidth(); i++) {
 			for (int j = 0; j < maze.getHeight(); j++) {
 				MazeNode u = maze.getNode(i, j);
@@ -28,24 +34,27 @@ public class MazeSolver {
 		while (!queue.isEmpty()) {
 			MazeNode you = queue.remove();
 			counter = 0;
-			you.setLabel(0);
+			you.setLabel(you.getDistance() % 10);
 			for (MazeNode adj : you.getConnectedList()) {
 				if (adj.getColor() == Color.WHITE) {
 					counter++;
-					adj.setColor(Color.WHITE);
+					adj.setColor(Color.GRAY);
 					adj.setDistance(you.getDistance() + 1);
 					adj.setParent(you);
-					adj.setLabel(counter);
+					adj.setLabel(adj.getDistance() % 10);
 					queue.add(adj);
 				}
 			}
 			you.setColor(Color.BLACK);
 		}
-		
-		return "";
 	}
 	
-	public static String solve_DFS(Maze maze, MazeNode source) {
-		return "";
+	/**
+	 * Traverses the maze using depth-first search
+	 * @param maze
+	 * @param source
+	 */
+	public static void solve_DFS(Maze maze, MazeNode source) {
+		// No need to return, just call solve_DFS and print the maze again in the solver test
 	}
 }
