@@ -30,14 +30,11 @@ public class MazeSolver {
 		source.setParent(null);
 		Queue<MazeNode> queue = new LinkedList<MazeNode>();
 		queue.add(source);
-		int counter = 0;
 		while (!queue.isEmpty()) {
 			MazeNode you = queue.remove();
-			counter = 0;
 			you.setLabel(you.getDistance() % 10);
 			for (MazeNode adj : you.getConnectedList()) {
 				if (adj.getColor() == Color.WHITE) {
-					counter++;
 					adj.setColor(Color.GRAY);
 					adj.setDistance(you.getDistance() + 1);
 					adj.setParent(you);
