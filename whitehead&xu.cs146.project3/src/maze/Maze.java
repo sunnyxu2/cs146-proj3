@@ -154,7 +154,7 @@ public class Maze {
 						represent += "|";
 					}
 
-					if (start.getColor() != Color.WHITE) {
+					if (test.getColor() != Color.WHITE) {
 						represent += test.getLabel();
 					} else {
 						represent += " ";
