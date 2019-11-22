@@ -2,6 +2,7 @@ package maze;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 /**
  * Class that solves mazes
@@ -87,6 +88,10 @@ public class MazeSolver {
 	 * @param maze
 	 * @param source
 	 */
+	/**
+	 * @param maze
+	 * @param source
+	 */
 	public static void solve_DFS(Maze maze, MazeNode source) {
 		for (int i = 0; i < maze.getWidth(); i++) {
 			for (int j = 0; j < maze.getHeight(); j++) {
@@ -98,6 +103,30 @@ public class MazeSolver {
 				u.setLabel(" ");
 			}
 		}
-		// No need to return, just call solve_DFS and print the maze again in the solver test
+			source.setDistance(0);
+			source.setParent(null);
+			Stack<MazeNode> stack = new Stack<MazeNode>();
+			stack.add(source);
+			source.setLabel("0");
+			int counter = 0;
+			while(!stack.isEmpty())
+			{
+				MazeNode u = stack.pop();
+				if(u.getColor() == Color.WHITE)
+				{
+					u.setColor(Color.GRAY);
+					u.setLabel(Integer.toString(counter%10));
+					for(MazeNode adj : u.getConnectedList())
+					{
+						if(adj.getColor() == Color.WHITE)
+						{
+							stack.push(adj);
+							adj.setParent(u);
+							counter++;
+						}
+					}
+					u.setColor(Color.BLACK);
+				}
+			}
 	}
 }

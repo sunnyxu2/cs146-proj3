@@ -14,6 +14,11 @@ class MazeSolverTest {
 		System.out.println("solve_BFS: \n" + maze.toString());
 		MazeSolver.traverse(maze);
 		System.out.println(maze.toString());
+		
+		MazeSolver.solve_DFS(maze, maze.getStart());
+		System.out.println("solve_DFS: \n" + maze.toString());
+		MazeSolver.traverse(maze);
+		System.out.println(maze.toString());
 	}
 
 }
