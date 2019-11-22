@@ -10,6 +10,10 @@ import java.util.Stack;
  * @author Sunny
  *
  */
+/**
+ * @author williamwhitehead
+ *
+ */
 public class MazeSolver {
 	/**
 	 * Traverses the maze using breadth-first search
@@ -68,19 +72,55 @@ public class MazeSolver {
 					u.setLabel(" ");
 				}
 			}
+			Stack<Coord2D> coords = new Stack<Coord2D>();
 			MazeNode curr = end;
 			while (!curr.equals(maze.getStart())) {
 				curr.setLabel("#");
+				coords.push(curr.getCoord());
 				curr = curr.getParent();
 			}
 			if (!curr.equals(maze.getStart())) {
 				return false;
 			}
 			curr.setLabel("#");
+			coords.push(curr.getCoord());
+			pathStats(coords, maze);
 			return true;
 		} else {
 			return false;
 		}
+	}
+	
+
+	/**
+	 * Returns path and cell statistics for a traversed maze
+	 * @param coords	a stack of visited cell coordinates
+	 * @param maze		the traversed maze
+	 */
+	public static void pathStats(Stack<Coord2D> coords, Maze maze)
+	{
+		System.out.print("Path: ");
+		int pathCounter = 0;
+		while(!coords.isEmpty()) {
+		System.out.print(coords.pop().toString()+", ");
+		pathCounter++;
+		if(pathCounter%10 == 0)	System.out.println("");
+		}
+		System.out.println();
+		System.out.println("Length of path: " + pathCounter);
+		
+		int visitCounter =0;
+		for (int i = 0; i < maze.getWidth(); i++) {
+			for (int j = 0; j < maze.getHeight(); j++) {
+				if (maze.getNode(i, j).getColor() == Color.GRAY || 
+				    maze.getNode(i, j).getColor() == Color.BLACK) {
+					visitCounter++;
+				}
+			}
+		}
+		System.out.println("Visited cells: " + visitCounter);
+		System.out.println();
+		
 	}
 	
 	/**
@@ -115,7 +155,7 @@ public class MazeSolver {
 				if(u.getColor() == Color.WHITE)
 				{
 					u.setColor(Color.GRAY);
-					u.setLabel(Integer.toString(counter%10));
+					if (u.equals(maze.getEnd())) break;
 					for(MazeNode adj : u.getConnectedList())
 					{
 						if(adj.getColor() == Color.WHITE)
@@ -123,6 +163,7 @@ public class MazeSolver {
 							stack.push(adj);
 							adj.setParent(u);
 							counter++;
+							adj.setLabel(Integer.toString(counter%10));
 						}
 					}
 					u.setColor(Color.BLACK);
