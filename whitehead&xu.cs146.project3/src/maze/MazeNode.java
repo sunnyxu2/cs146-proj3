@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
- * White is undiscovered, grey is discovered, 
+ * White is undiscovered, grey is discovered,
+ * 
  * @author Sunny
  *
  */
@@ -14,6 +15,7 @@ enum Color {
 
 /**
  * Compass directions.
+ * 
  * @author Sunny
  *
  */
@@ -23,6 +25,7 @@ enum Compass {
 
 /**
  * Object node class for maze creation and search.
+ * 
  * @author Sunny
  *
  */
@@ -39,6 +42,7 @@ public class MazeNode {
 
 	/**
 	 * Constructs a node from x and y coordinate
+	 * 
 	 * @param x
 	 * @param y
 	 */
@@ -55,6 +59,7 @@ public class MazeNode {
 
 	/**
 	 * Constructs a node from a coordinate object
+	 * 
 	 * @param x
 	 * @param y
 	 */
@@ -71,6 +76,7 @@ public class MazeNode {
 
 	/**
 	 * Returns a 2d coordinate object in the format (x, y)
+	 * 
 	 * @return
 	 */
 	public Coord2D getCoord() {
@@ -79,6 +85,7 @@ public class MazeNode {
 
 	/**
 	 * Gets arraylist of adjacent nodes
+	 * 
 	 * @return
 	 */
 	public ArrayList<MazeNode> getAdjacencyList() {
@@ -87,30 +94,34 @@ public class MazeNode {
 
 	/**
 	 * Adds node to arraylist of adjacent nodes
+	 * 
 	 * @param other
 	 */
 	public void addAdjacent(MazeNode other) {
 		adj.add(other);
 	}
-	
+
 	/**
 	 * Gets the linkedlist of connected nodes
+	 * 
 	 * @return
 	 */
 	public LinkedList<MazeNode> getConnectedList() {
 		return connected;
 	}
-	
+
 	/**
 	 * Adds node to linkedlist of connected nodes
+	 * 
 	 * @param other
 	 */
 	public void addConnected(MazeNode other) {
 		connected.add(other);
 	}
-	
+
 	/**
 	 * Gets color
+	 * 
 	 * @return
 	 */
 	public Color getColor() {
@@ -119,14 +130,16 @@ public class MazeNode {
 
 	/**
 	 * Sets color
+	 * 
 	 * @param color
 	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
-	
+
 	/**
 	 * Gets eastern node in adjacency array (not connected)
+	 * 
 	 * @return eastern node or null
 	 */
 	public MazeNode getEastAdj() {
@@ -137,9 +150,10 @@ public class MazeNode {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets western node in adjacency array (not connected)
+	 * 
 	 * @return western node or null
 	 */
 	public MazeNode getWestAdj() {
@@ -150,9 +164,10 @@ public class MazeNode {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets northern node in adjacency array (not connected)
+	 * 
 	 * @return northern node or null
 	 */
 	public MazeNode getNorthAdj() {
@@ -163,9 +178,10 @@ public class MazeNode {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets southern node in adjacency array (not connected)
+	 * 
 	 * @return southern node or null
 	 */
 	public MazeNode getSouthAdj() {
@@ -179,6 +195,7 @@ public class MazeNode {
 
 	/**
 	 * Gets eastern node in linkedlist of connected nodes
+	 * 
 	 * @return eastern node or null
 	 */
 	public MazeNode getEastConnected() {
@@ -189,9 +206,10 @@ public class MazeNode {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets western node in linkedlist of connected nodes
+	 * 
 	 * @return western node or null
 	 */
 	public MazeNode getWestConnected() {
@@ -202,9 +220,10 @@ public class MazeNode {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets northern node in linkedlist of connected nodes
+	 * 
 	 * @return northern node or null
 	 */
 	public MazeNode getNorthConnected() {
@@ -215,9 +234,10 @@ public class MazeNode {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Gets southern node in linkedlist of connected nodes
+	 * 
 	 * @return southern node or null
 	 */
 	public MazeNode getSouthConnected() {
@@ -228,78 +248,87 @@ public class MazeNode {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Sets distance
-	 * @param d
+	 * 
+	 * @param distance
 	 */
 	public void setDistance(int d) {
 		distance = d;
 	}
-	
+
 	/**
 	 * Gets distance
-	 * @return
+	 * 
+	 * @return distance
 	 */
 	public int getDistance() {
 		return distance;
 	}
-	
+
 	/**
 	 * Sets discovery time
-	 * @param d
+	 * 
+	 * @param discovery time
 	 */
 	public void setDiscoveryTime(int d) {
 		discovery = d;
 	}
-	
+
 	/**
 	 * Gets discovery time
-	 * @return
+	 * 
+	 * @return discovery time
 	 */
 	public int getDiscoveryTime() {
 		return discovery;
 	}
-	
+
 	/**
 	 * Sets finish time
-	 * @param f
+	 * 
+	 * @param finish time
 	 */
 	public void setFinishTime(int f) {
 		finish = f;
 	}
-	
+
 	/**
 	 * Gets finish time
-	 * @return
+	 * 
+	 * @return finish time
 	 */
 	public int getFinishTime() {
 		return finish;
 	}
-	
+
 	/**
 	 * Gets parent node
-	 * @return
+	 * 
+	 * @return parent node
 	 */
 	public MazeNode getParent() {
 		return parent;
 	}
-	
+
 	/**
 	 * Sets parent node
+	 * 
 	 * @param other
 	 */
 	public void setParent(MazeNode other) {
 		parent = other;
 	}
-	
+
 	public String toString() {
 		return "[" + color + ", " + coord.toString() + "]";
 	}
 
 	/**
 	 * Gets label (a String)
-	 * @return
+	 * 
+	 * @return a string
 	 */
 	public String getLabel() {
 		return label;
@@ -307,6 +336,7 @@ public class MazeNode {
 
 	/**
 	 * Sets label as a String
+	 * 
 	 * @param label
 	 */
 	public void setLabel(String label) {
