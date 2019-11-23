@@ -31,7 +31,13 @@ public class Maze {
 
 		random = new Random();
 
-		generateMaze();
+		//generateMaze();
+		nodes = new MazeNode[cols][rows];
+		for (int i = 0; i < cols; i++) { // FIX ISSUE WHERE RECTANGULAR MAZES DO NOT WORK!!!
+			for (int j = 0; j < rows; j++) {
+				nodes[i][j] = new MazeNode(i, j);
+			}
+		}
 	}
 
 	/**
@@ -47,20 +53,21 @@ public class Maze {
 		random = new Random();
 		random.setSeed(seed);
 
-		generateMaze();
-	}
-
-	/**
-	 * Helper method to construct a maze
-	 */
-	private void generateMaze() {
+		//generateMaze();
 		nodes = new MazeNode[cols][rows];
-		if (start == null || end == null) {
-			for (int i = 0; i < cols; i++) { // FIX ISSUE WHERE RECTANGULAR MAZES DO NOT WORK!!!
-				for (int j = 0; j < rows; j++) {
-					nodes[i][j] = new MazeNode(i, j);
-				}
+		for (int i = 0; i < cols; i++) { // FIX ISSUE WHERE RECTANGULAR MAZES DO NOT WORK!!!
+			for (int j = 0; j < rows; j++) {
+				nodes[i][j] = new MazeNode(i, j);
 			}
+		}
+	}
+	
+	/**
+	 * Method to construct the maze after the grid has been instantiated
+	 */
+	public void generateMaze() {
+		if (start == null || end == null) {
+			
 
 			for (int i = 0; i < cols; i++) { //
 				for (int j = 0; j < rows; j++) {
@@ -127,6 +134,10 @@ public class Maze {
 			for (int i = 0; i < cols; i++) { //
 				for (int j = 0; j < rows; j++) {
 					nodes[i][j].setColor(Color.WHITE);
+					nodes[i][j].setDiscoveryTime(0);
+					nodes[i][j].setFinishTime(0);
+					nodes[i][j].setDistance(0);
+					nodes[i][j].setLabel(" ");
 				}
 			}
 		}
