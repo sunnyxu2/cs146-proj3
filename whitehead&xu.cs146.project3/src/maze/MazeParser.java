@@ -16,61 +16,66 @@ public class MazeParser {
 			char[] split = scanner.nextLine().substring(0, 2 * x + 1).toCharArray();
 			for (int i = 0; i < 2 * x + 1; i++) {
 				grid[i][row] = split[i];
-				System.out.print(split[i]);
+				//System.out.print(split[i]);
 			}
-			System.out.println();
+			//System.out.println();
 			row++;
 		}
 
 		for (int ver = 1; ver < 2 * y; ver += 2) {
 			for (int hor = 1; hor < 2 * x; hor += 2) {
-				int xc = (hor - 1) / 2;
-				int yc = (ver - 1) / 2;
-				System.out.print("(" + xc + ", " + yc + ")");
-				if (yc == 0) { // topmost row, ignore the top wall
-					// TBD
-				} else if (yc == y - 1) { // bottom most row, ignore the bottom wall
-					// TBD
-				} else { // do not ignore the walls above and below
-					if ((grid[ver - 1][hor] + "").equals("-")) { // check top wall
-						// TBD: wall
+				int xc = (ver - 1) / 2;
+				int yc = (hor - 1) / 2;
+				MazeNode curr = maze.getNode(xc, yc);
+				if (curr.getNorthAdj() != null) {
+					String wall = grid[ver][hor - 1] + "";
+					//System.out.print(wall);
+					if (!wall.equals(" ")) {
+						//System.out.println(curr.toString() + " encountered the north wall");
 					} else {
-						// TBD: connect the top npde to this node
-					}
-
-					if (xc == 0) { // leftmost column, ignore the left wall
-						// TBD: check right wall
-					} else if (xc == x - 1) { // rightmost column, ignore the right wall
-						// TBD: check left wall
-					} else { // do not ignore the right and left walls
-						if ((grid[ver][hor - 1] + "").equals("|")) { // check left wall
-							// TBD: wall
-						} else {
-							// TBD: connect the left node to this node
-						}
-
-						if ((grid[ver][hor + 1] + "").equals("|")) { // check right wall
-							// TBD: wall
-						} else {
-							// TBD: connect the right node to this node
-						}
-					}
-
-					if ((grid[ver + 1][hor] + "").equals("-")) { // check bottom wall
-						// TBD: wall
-					} else {
-						// TBD: connect the bottom node to this node
+						connectTwoNodes(curr, curr.getNorthAdj());
+						//System.out.println("Connected " + curr + " to the north");
 					}
 				}
+				if (curr.getSouthAdj() != null) {
+					String wall = grid[ver][hor + 1] + "";
+					//System.out.print(wall);
+					if (!wall.equals(" ")) {
+						//System.out.println(curr.toString() + " encountered the south wall");
+					} else {
+						connectTwoNodes(curr, curr.getSouthAdj());
+						//System.out.println("Connected " + curr + " to the south");
+					}
+				}
+				if (curr.getEastAdj() != null) {
+					String wall = grid[ver + 1][hor] + "";
+					//System.out.print(wall);
+					if (wall.equals("|")) {
+						//System.out.println(curr.toString() + " encountered the east wall");
+					} else {
+						connectTwoNodes(curr, curr.getEastAdj());
+						//System.out.println("Connected " + curr + " to the east");
+					}
+				}
+				if (curr.getWestAdj() != null) {
+					String wall = grid[ver - 1][hor] + "";
+					//System.out.print(wall);
+					if (wall.equals("|")) {
+						//System.out.println(curr.toString() + " encountered the west wall");
+					} else {
+						connectTwoNodes(curr, curr.getWestAdj());
+						//System.out.println("Connected " + curr + " to the west");
+					}
+				}
+				//System.out.println();
 			}
-			System.out.println();
 		}
+		scanner.close();
 		return maze;
 	}
 
-	public static void main(String[] args) {
-		String test = "4 4\r\n" + "+ +-+-+-+\r\n" + "|   |   |\r\n" + "+-+ +-+ +\r\n" + "| |     |\r\n"
-				+ "+ +-+-+ +\r\n" + "|       |\r\n" + "+ +-+-+-+\r\n" + "|       |\r\n" + "+-+-+-+ +\r\n" + "";
-		MazeParser.parse(test);
+	private static void connectTwoNodes(MazeNode a, MazeNode b) {
+		a.addConnected(b);
+		b.addConnected(a);
 	}
 }
