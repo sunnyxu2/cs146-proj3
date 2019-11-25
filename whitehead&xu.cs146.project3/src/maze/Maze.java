@@ -33,11 +33,40 @@ public class Maze {
 
 		//generateMaze();
 		nodes = new MazeNode[cols][rows];
-		for (int i = 0; i < cols; i++) { // FIX ISSUE WHERE RECTANGULAR MAZES DO NOT WORK!!!
+		for (int i = 0; i < cols; i++) {
 			for (int j = 0; j < rows; j++) {
 				nodes[i][j] = new MazeNode(i, j);
 			}
 		}
+		
+		for (int i = 0; i < cols; i++) { //
+			for (int j = 0; j < rows; j++) {
+				MazeNode curr = nodes[i][j];
+				MazeNode check;
+				if (i - 1 >= 0) {
+					check = nodes[i - 1][j];
+					curr.addAdjacent(check); // WEST
+				}
+
+				if (i + 1 < cols) {
+					check = nodes[i + 1][j];
+					curr.addAdjacent(check); // EAST
+				}
+
+				if (j - 1 >= 0) {
+					check = nodes[i][j - 1];
+					curr.addAdjacent(check); // SOUTH
+				}
+
+				if (j + 1 < rows) {
+					check = nodes[i][j + 1];
+					curr.addAdjacent(check); // NORTH
+				}
+			}
+		}
+
+		start = nodes[0][0];
+		end = nodes[cols - 1][rows - 1];
 	}
 
 	/**
@@ -55,90 +84,88 @@ public class Maze {
 
 		//generateMaze();
 		nodes = new MazeNode[cols][rows];
-		for (int i = 0; i < cols; i++) { // FIX ISSUE WHERE RECTANGULAR MAZES DO NOT WORK!!!
+		for (int i = 0; i < cols; i++) {
 			for (int j = 0; j < rows; j++) {
 				nodes[i][j] = new MazeNode(i, j);
 			}
 		}
+		
+		for (int i = 0; i < cols; i++) { //
+			for (int j = 0; j < rows; j++) {
+				MazeNode curr = nodes[i][j];
+				MazeNode check;
+				if (i - 1 >= 0) {
+					check = nodes[i - 1][j];
+					curr.addAdjacent(check); // WEST
+				}
+
+				if (i + 1 < cols) {
+					check = nodes[i + 1][j];
+					curr.addAdjacent(check); // EAST
+				}
+
+				if (j - 1 >= 0) {
+					check = nodes[i][j - 1];
+					curr.addAdjacent(check); // SOUTH
+				}
+
+				if (j + 1 < rows) {
+					check = nodes[i][j + 1];
+					curr.addAdjacent(check); // NORTH
+				}
+			}
+		}
+
+		start = nodes[0][0];
+		end = nodes[cols - 1][rows - 1];
 	}
 	
 	/**
 	 * Method to construct the maze after the grid has been instantiated
 	 */
 	public void generateMaze() {
-		if (start == null || end == null) {
-			
+		
 
-			for (int i = 0; i < cols; i++) { //
-				for (int j = 0; j < rows; j++) {
-					MazeNode curr = nodes[i][j];
-					MazeNode check;
-					if (i - 1 >= 0) {
-						check = nodes[i - 1][j];
-						curr.addAdjacent(check); // WEST
-					}
+		Stack<MazeNode> stack = new Stack<>();
+		int totalCells = rows * cols;
+		MazeNode curr = start;
+		int visitedCells = 1;
 
-					if (i + 1 < cols) {
-						check = nodes[i + 1][j];
-						curr.addAdjacent(check); // EAST
-					}
+		while (visitedCells < totalCells) {
+			ArrayList<MazeNode> beigh = curr.getAdjacencyList();
+			ArrayList<MazeNode> neigh = new ArrayList<>();
 
-					if (j - 1 >= 0) {
-						check = nodes[i][j - 1];
-						curr.addAdjacent(check); // SOUTH
-					}
-
-					if (j + 1 < rows) {
-						check = nodes[i][j + 1];
-						curr.addAdjacent(check); // NORTH
-					}
+			for (MazeNode node : beigh) {
+				if (node.getColor() == Color.WHITE && !neigh.contains(node)) {
+					neigh.add(node);
 				}
 			}
 
-			start = nodes[0][0];
-			end = nodes[cols - 1][rows - 1];
-
-			Stack<MazeNode> stack = new Stack<>();
-			int totalCells = rows * cols;
-			MazeNode curr = start;
-			int visitedCells = 1;
-
-			while (visitedCells < totalCells) {
-				ArrayList<MazeNode> beigh = curr.getAdjacencyList();
-				ArrayList<MazeNode> neigh = new ArrayList<>();
-
-				for (MazeNode node : beigh) {
-					if (node.getColor() == Color.WHITE && !neigh.contains(node)) {
-						neigh.add(node);
-					}
-				}
-
-				if (neigh.size() > 0) {
-					curr.setColor(Color.GRAY);
-					MazeNode chosen;
-					int upper = neigh.size() - 1;
-					int index = (int) (random.nextDouble() * neigh.size());
-					chosen = neigh.get(index);
-					curr.addConnected(chosen);
-					chosen.setParent(curr);
-					stack.push(curr);
-					chosen.addConnected(curr);
-					chosen.setColor(Color.GRAY);
-					curr = chosen;
-					visitedCells++;
-				} else {
-					curr = stack.pop();
-				}
+			if (neigh.size() > 0) {
+				curr.setColor(Color.GRAY);
+				MazeNode chosen;
+				int upper = neigh.size() - 1;
+				int index = (int) (random.nextDouble() * neigh.size());
+				chosen = neigh.get(index);
+				curr.addConnected(chosen);
+				chosen.setParent(curr);
+				stack.push(curr);
+				chosen.addConnected(curr);
+				chosen.setColor(Color.GRAY);
+				curr = chosen;
+				visitedCells++;
+			} else {
+				curr = stack.pop();
 			}
+		}
 
-			for (int i = 0; i < cols; i++) { //
-				for (int j = 0; j < rows; j++) {
-					nodes[i][j].setColor(Color.WHITE);
-					nodes[i][j].setDiscoveryTime(0);
-					nodes[i][j].setFinishTime(0);
-					nodes[i][j].setDistance(0);
-					nodes[i][j].setLabel(" ");
-				}
+		for (int i = 0; i < cols; i++) { //
+			for (int j = 0; j < rows; j++) {
+				nodes[i][j].setColor(Color.WHITE);
+				nodes[i][j].setDiscoveryTime(0);
+				nodes[i][j].setFinishTime(0);
+				nodes[i][j].setDistance(0);
+				nodes[i][j].setLabel(" ");
 			}
 		}
 	}
